@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Authors Registry</title>
+</head>
+<body>
+    <nav>
+        <div class="brand">📚 Library Admin</div>
+        <a href="/">🏠 Dashboard Home</a>
+        <a href="/books">📖 Books Catalog</a>
+        <a href="/authors" class="active">✍️ Authors Profiles</a>
+        <a href="/issue">🎟️ Issue Book Desk</a>
+        <a href="/fines">💸 Fines Account</a>
+        <a href="/staff">👥 Staff Directory</a>
+        <a href="/analytics">📊 Query Analytics</a>
+    </nav>
+    
+    <div class="container">
+        <h1>Author Profiles Registry</h1>
+        <div class="subtitle">Manage global author demographics and relational biography indices.</div>
+        
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Author ID</th>
+                        <th>Full Name</th>
+                        <th>Country of Origin</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for author in authors %}
+                    <tr>
+                        <td><strong>#{{ author.author_id }}</strong></td>
+                        <td>{{ author.name }}</td>
+                        <td>
+                            <span class="badge badge-available">{{ author.country }}</span>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

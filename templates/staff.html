@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Staff Roster</title>
+</head>
+<body>
+    <nav>
+        <div class="brand">📚 Library Admin</div>
+        <a href="/">🏠 Dashboard Home</a>
+        <a href="/books">📖 Books Catalog</a>
+        <a href="/authors">✍️ Authors Profiles</a>
+        <a href="/issue">🎟️ Issue Book Desk</a>
+        <a href="/fines">💸 Fines Account</a>
+        <a href="/staff" class="active">👥 Staff Directory</a>
+        <a href="/analytics">📊 Query Analytics</a>
+    </nav>
+    
+    <div class="container">
+        <h1>Staff Directory Profiles</h1>
+        <div class="subtitle">Administrative management, user group access hierarchies, and employee roster listings.</div>
+        
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Staff ID</th>
+                        <th>Employee Full Name</th>
+                        <th>Role / Designation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for person in staff %}
+                    <tr>
+                        <td><strong>#{{ person.staff_id }}</strong></td>
+                        <td>{{ person.name }}</td>
+                        <td>
+                            <span class="badge badge-available" style="background: rgba(59, 130, 246, 0.15); color: #1d4ed8; box-shadow: none;">
+                                💼 {{ person.role }}
+                            </span>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

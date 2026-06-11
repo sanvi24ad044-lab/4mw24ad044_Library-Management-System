@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Books Catalog</title>
+</head>
+<body>
+    <nav>
+        <div class="brand">📚 Library Admin</div>
+        <a href="/">🏠 Dashboard Home</a>
+        <a href="/books" class="active">📖 Books Catalog</a>
+        <a href="/authors">✍️ Authors Profiles</a>
+        <a href="/issue">🎟️ Issue Book Desk</a>
+        <a href="/fines">💸 Fines Account</a>
+        <a href="/staff">👥 Staff Directory</a>
+        <a href="/analytics">📊 Query Analytics</a>
+    </nav>
+    
+    <div class="container">
+        <h1>Complete Books System Catalog</h1>
+        <div class="subtitle">Query 1: Core inventory indexing, pricing parameters, and checkout tracking.</div>
+        
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Book ID</th>
+                        <th>Title</th>
+                        <th>Author ID</th>
+                        <th>Category</th>
+                        <th>Price</th>
+                        <th>Availability Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for book in books %}
+                    <tr>
+                        <td><strong>#{{ book.book_id }}</strong></td>
+                        <td>{{ book.title }}</td>
+                        <td><strong>#{{ book.author_id }}</strong></td>
+                        <td>{{ book.category }}</td>
+                        <td>Rs. {{ book.price }}</td>
+                        <td>
+                            {% if book.availability == 'Available' %}
+                            <span class="badge badge-available">● Available</span>
+                            {% else %}
+                            <span class="badge badge-issued">● Issued</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

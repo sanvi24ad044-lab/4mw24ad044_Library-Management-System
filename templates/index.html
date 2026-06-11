@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Library System Dashboard</title>
+</head>
+<body>
+    <nav>
+        <div class="brand">📚 Library Admin</div>
+        <a href="/" class="active">🏠 Dashboard Home</a>
+        <a href="/books">📖 Books Catalog</a>
+        <a href="/authors">✍️ Authors Profiles</a>
+        <a href="/issue">🎟️ Issue Book Desk</a>
+        <a href="/fines">💸 Fines Account</a>
+        <a href="/staff">👥 Staff Directory</a>
+        <a href="/analytics">📊 Query Analytics</a>
+    </nav>
+    
+    <div class="container">
+        <h1>System Overview Dashboard</h1>
+        <div class="subtitle">Real-time status updates and operational telemetry.</div>
+        
+        <div class="stats-grid">
+            <div class="card">
+                <h3>Total Catalog Items</h3>
+                <div class="value">12,450</div>
+            </div>
+            <div class="card">
+                <h3>Active Members</h3>
+                <div class="value">1,102</div>
+            </div>
+            <div class="card">
+                <h3>Checked Out Items</h3>
+                <div class="value">342</div>
+            </div>
+            <div class="card">
+                <h3>Overdue Fines Accrued</h3>
+                <div class="value">Rs. 4,150</div>
+            </div>
+        </div>
+
+        <h2>Welcome back, Administrator</h2>
+        <p style="color: var(--text-muted); max-width: 600px; line-height: 1.6;">
+            Manage book tracking states, invoke automated conditional parameters via continuous triggers, and securely query analytics across relational profiles instantly using the sidebar engine panels.
+        </p>
+    </div>
+</body>
+</html>

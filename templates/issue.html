@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="static/style.css">
+    <title>Issue Book Desk</title>
+</head>
+<body>
+    <nav>
+        <div class="brand">📚 Library Admin</div>
+        <a href="/">🏠 Dashboard Home</a>
+        <a href="/books">📖 Books Catalog</a>
+        <a href="/authors">✍️ Authors Profiles</a>
+        <a href="/issue" class="active">🎟️ Issue Book Desk</a>
+        <a href="/fines">💸 Fines Account</a>
+        <a href="/staff">👥 Staff Directory</a>
+        <a href="/analytics">📊 Query Analytics</a>
+    </nav>
+    
+    <div class="container">
+        <h1>Book Issue Operations Desk</h1>
+        <div class="subtitle">Stored Procedure 1: Dispatch inventory assets and log dynamic membership transactions safely.</div>
+
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for m in messages %}
+                    <div class="flash">✨ {{ m }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <h2>Create New Issue Record</h2>
+        <div class="subtitle" style="margin-bottom: 15px; font-size: 0.9rem;">Submitting executes the backend Stored Procedure "IssueBook".</div>
+        
+        <div class="form-card" style="margin-bottom: 40px;">
+            <form method="POST">
+                <div class="form-group">
+                    <label>New Issue Transaction ID</label>
+                    <input type="number" name="issue_id" placeholder="Enter transaction ID (e.g. 5001)" required>
+                </div>
+                <div class="form-group">
+                    <label>Member ID</label>
+                    <input type="number" name="member_id" placeholder="Enter member profile ID" required>
+                </div>
+                <div class="form-group">
+                    <label>Book ID</label>
+                    <input type="number" name="book_id" placeholder="Enter catalog inventory book ID" required>
+                </div>
+                <div class="form-group">
+                    <label>Issue Date</label>
+                    <input type="date" name="issue_date" required>
+                </div>
+                <div class="form-group">
+                    <label>Due Date</label>
+                    <input type="date" name="due_date" required>
+                </div>
+                <button type="submit">Execute IssueBook Procedure</button>
+            </form>
+        </div>
+
+        <h2>Active Issue Log Registry</h2>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Issue ID</th>
+                        <th>Member ID</th>
+                        <th>Book ID</th>
+                        <th>Issue Date</th>
+                        <th>Due Date</th>
+                        <th>Return Status / Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for issue in issues %}
+                    <tr>
+                        <td><strong>#{{ issue.issue_id }}</strong></td>
+                        <td><strong>#{{ issue.member_id }}</strong></td>
+                        <td><strong>#{{ issue.book_id }}</strong></td>
+                        <td>{{ issue.issue_date }}</td>
+                        <td>{{ issue.due_date }}</td>
+                        <td>
+                            {% if issue.return_date %}
+                            <span class="badge badge-available">✔ Returned ({{ issue.return_date }})</span>
+                            {% else %}
+                            <span class="badge badge-issued">● Active Checkout</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

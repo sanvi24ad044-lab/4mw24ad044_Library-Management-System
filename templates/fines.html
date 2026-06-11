@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Returns & Fines Management Desk</title>
+</head>
+<body>
+    <nav>
+        <div class="brand">📚 Library Admin</div>
+        <a href="/">🏠 Dashboard Home</a>
+        <a href="/books">📖 Books Catalog</a>
+        <a href="/authors">✍️ Authors Profiles</a>
+        <a href="/issue">🎟️ Issue Book Desk</a>
+        <a href="/fines" class="active">💸 Fines Account</a>
+        <a href="/staff">👥 Staff Directory</a>
+        <a href="/analytics">📊 Query Analytics</a>
+    </nav>
+    
+    <div class="container">
+        <h1>Returns & Fines Control Panel</h1>
+        <div class="subtitle">Process returns, settle accounts, and review automated overdue assessment metrics.</div>
+
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for m in messages %}
+                    <div class="flash">✨ {{ m }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <h2>Process Book Return</h2>
+        <div class="subtitle" style="margin-bottom: 15px; font-size: 0.9rem;">Submitting this form fires the database's automated calculation trigger.</div>
+        
+        <div class="form-card" style="margin-bottom: 40px;">
+            <form method="POST">
+                <div class="form-group">
+                    <label>Active Issue ID to Return</label>
+                    <input type="number" name="issue_id" placeholder="Enter active transaction ID" required>
+                </div>
+                <div class="form-group">
+                    <label>Actual Return Date</label>
+                    <input type="date" name="return_date" required>
+                </div>
+                <button type="submit">Submit Return Processing</button>
+            </form>
+        </div>
+
+        <h2>Fine Accounts Registry Log</h2>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Fine ID</th>
+                        <th>Member ID</th>
+                        <th>Amount Assessed</th>
+                        <th>Settlement Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for fine in fines %}
+                    <tr>
+                        <td><strong>#{{ fine.fine_id }}</strong></td>
+                        <td><strong>#{{ fine.member_id }}</strong></td>
+                        <td><span style="color: #0f172a; font-weight: 700;">Rs. {{ fine.amount }}</span></td>
+                        <td>
+                            {% if fine.paid_status and fine.paid_status.lower() == 'paid' %}
+                            <span class="badge badge-available">● Paid</span>
+                            {% else %}
+                            <span class="badge badge-issued">● Unpaid / Outstanding</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
