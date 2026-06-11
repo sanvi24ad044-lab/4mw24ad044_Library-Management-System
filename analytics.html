@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Relational Query Analytics</title>
+</head>
+<body>
+    <nav>
+        <div class="brand">📚 Library Admin</div>
+        <a href="/">🏠 Dashboard Home</a>
+        <a href="/books">📖 Books Catalog</a>
+        <a href="/authors">✍️ Authors Profiles</a>
+        <a href="/issue">🎟️ Issue Book Desk</a>
+        <a href="/fines">💸 Fines Account</a>
+        <a href="/staff">👥 Staff Directory</a>
+        <a href="/analytics" class="active">📊 Query Analytics</a>
+    </nav>
+    
+    <div class="container">
+        <h1>Assignment Complex Queries Output Panel</h1>
+        <div class="subtitle">Relational database insights, aggregate operations, and subquery results.</div>
+
+        <h2>Query 3: Display issue and member details (2-table INNER JOIN)</h2>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Issue ID</th>
+                        <th>Member Name</th>
+                        <th>Book ID</th>
+                        <th>Issue Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for r in data['q3'] %}
+                    <tr>
+                        <td><strong>#{{ r.issue_id }}</strong></td>
+                        <td>{{ r.name }}</td>
+                        <td>{{ r.book_id }}</td>
+                        <td>{{ r.issue_date }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <h2>Query 4: Display issue, member, and book details (3-table JOIN)</h2>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Issue ID</th>
+                        <th>Member Name</th>
+                        <th>Book Title</th>
+                        <th>Issue Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for r in data['q4'] %}
+                    <tr>
+                        <td><strong>#{{ r.issue_id }}</strong></td>
+                        <td>{{ r.member_name }}</td>
+                        <td>{{ r.book_title }}</td>
+                        <td>{{ r.issue_date }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <h2>Query 5: Count number of books in each category (GROUP BY)</h2>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Category Group</th>
+                        <th>Total Volume</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for r in data['q5'] %}
+                    <tr>
+                        <td><span class="badge badge-available">{{ r.category }}</span></td>
+                        <td><strong>{{ r.TotalBooks }} books</strong></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <h2>Query 6: Display categories having more than 50 books (HAVING)</h2>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Category Group</th>
+                        <th>Total Volume</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for r in data['q6'] %}
+                    <tr>
+                        <td><span class="badge badge-issued">{{ r.category }}</span></td>
+                        <td><strong>{{ r.TotalBooks }} books</strong></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <h2>Query 7: Books whose price is greater than average book price (Subquery)</h2>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Book ID</th>
+                        <th>Title</th>
+                        <th>Price (Rs.)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for r in data['q7'] %}
+                    <tr>
+                        <td><strong>#{{ r.book_id }}</strong></td>
+                        <td>{{ r.title }}</td>
+                        <td>Rs. {{ r.price }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <h2>Query 10: Retrieve books that were never issued (NOT EXISTS)</h2>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Book ID</th>
+                        <th>Title</th>
+                        <th>Category</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for r in data['q10'] %}
+                    <tr>
+                        <td><strong>#{{ r.book_id }}</strong></td>
+                        <td>{{ r.title }}</td>
+                        <td>{{ r.category }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+    </div>
+</body>
+</html>
